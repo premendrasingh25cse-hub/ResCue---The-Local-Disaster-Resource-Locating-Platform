@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { CloudSun, Wind, AlertTriangle, MapPin, Flag, Globe } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
-const ORG_NAME = 'ResCue';
+const ORG_NAME = 'ResCue : The Local Disaster Resource Locating Platform';
 const ORG_TAGLINE = 'DISASTER RESPONSE';
 
 type NewsScope = 'Regional' | 'National' | 'Global';
@@ -427,8 +427,7 @@ export function Dashboard() {
   const showLocationNotice = newsScope === 'Regional' && locationDenied;
 
   return (
-    <div className="h-full overflow-y-auto bg-background">
-      <div className="h-0.5 bg-primary" />
+    <div className="h-full overflow-y-auto bg-transparent">
 
       <div className="p-4 md:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 max-w-6xl mx-auto">
         <div className="flex-1 min-w-0 space-y-6">
@@ -445,7 +444,7 @@ export function Dashboard() {
           </header>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-card rounded-[12px] p-6 space-y-4 border border-white/[0.08] transition-all duration-200 ease-out hover:border-white/[0.12]">
+            <div className="card-premium p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs text-muted-foreground uppercase tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Weather
@@ -468,7 +467,7 @@ export function Dashboard() {
               )}
             </div>
 
-            <div className="bg-card rounded-[12px] p-6 flex flex-col justify-center border border-white/[0.08] transition-all duration-200 ease-out hover:border-white/[0.12]">
+            <div className="card-premium p-6 flex flex-col justify-center">
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Emergency
               </p>
@@ -486,16 +485,58 @@ export function Dashboard() {
               </p>
             </div>
           </div>
+
+          {/* New Image and Banner Section */}
+          <div className="card-premium overflow-hidden relative min-h-[240px] flex items-end p-6">
+            <div className="absolute inset-0 z-0">
+              <img 
+                src="/images/emergency_rescue_team_1773453820158.png" 
+                alt="Emergency Response Team" 
+                className="w-full h-full object-cover opacity-50 mix-blend-luminosity hover:mix-blend-normal hover:opacity-70 transition-all duration-500" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+            </div>
+            <div className="relative z-10 space-y-2 max-w-lg">
+              <p className="text-lg md:text-xl font-medium italic text-white drop-shadow-md" style={{ fontFamily: 'Inter, sans-serif' }}>
+                "Strength doesn't come from what you can do. It comes from overcoming the things you once thought you couldn't."
+              </p>
+              <p className="text-sm text-white/80 font-medium">
+                — ResCue Core Philosophy
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="card-premium overflow-hidden relative min-h-[180px] group">
+              <img 
+                src="/images/community_rescue_1773453922514.png" 
+                alt="Community Rescue" 
+                className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 group-hover:opacity-60 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="relative z-10 p-6 flex flex-col h-full justify-center">
+                <p className="text-white/90 italic font-medium text-sm leading-relaxed drop-shadow-sm">
+                  "Every drop of water tells a story of survival and unity in the face of nature's test."
+                </p>
+              </div>
+            </div>
+            <div className="card-premium overflow-hidden relative min-h-[180px] group">
+              <img 
+                src="/images/search_rescue_dog_1773453943099.png" 
+                alt="Search and Rescue Dog" 
+                className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 group-hover:opacity-60 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="relative z-10 p-6 flex flex-col h-full justify-center">
+                 <p className="text-white/90 italic font-medium text-sm leading-relaxed drop-shadow-sm">
+                  "Loyalty and courage come in all forms. Our K-9 units are the heart of search operations."
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <aside
-          className="w-full lg:w-80 flex-shrink-0 flex flex-col rounded-[12px] overflow-hidden border border-white/[0.08]"
-          style={{
-            background: 'hsl(240 15% 10% / 0.6)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-          }}
-        >
+        <aside className="w-full lg:w-80 flex-shrink-0 flex flex-col overflow-hidden card-premium">
           <div className="p-4 border-b border-white/[0.08] text-xs text-muted-foreground uppercase tracking-wider" style={{ fontFamily: 'Inter, sans-serif' }}>
             News Feed
           </div>

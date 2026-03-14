@@ -8,6 +8,7 @@ import { VolunteerMesh } from '@/components/VolunteerMesh';
 import { AnalyticsDashboard } from '@/components/AnalyticsDashboard';
 import { CommunityManagement } from '@/components/CommunityManagement';
 import { Dashboard } from '@/components/Dashboard';
+import { Settings } from '@/components/Settings';
 import { TabProvider, useTabs } from '@/context/TabContext';
 import { AppProvider, useApp } from '@/context/AppContext';
 
@@ -48,6 +49,8 @@ function WorkspaceContent() {
         return <AnalyticsDashboard />;
       case 'community':
         return <CommunityManagement />;
+      case 'settings':
+        return <Settings />;
       default:
         return null;
     }

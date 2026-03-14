@@ -9,15 +9,15 @@
     --font-mono: 'IBM Plex Mono', monospace;
     --font-body: 'Inter', sans-serif;
 
-    /* Premium palette: deep charcoal #0D0D12, card #16161E, primary #3B82F6, text #E1E1E1 */
+    /* Base theme with deeper contrasts for glassmorphism */
     --background: 240 16% 6%;
-    --foreground: 0 0% 88%;
+    --foreground: 0 0% 100%;
 
     --card: 240 15% 10%;
-    --card-foreground: 0 0% 88%;
+    --card-foreground: 0 0% 100%;
 
     --popover: 240 15% 10%;
-    --popover-foreground: 0 0% 88%;
+    --popover-foreground: 0 0% 100%;
 
     --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
@@ -26,10 +26,10 @@
     --secondary-foreground: 0 0% 88%;
 
     --muted: 240 10% 18%;
-    --muted-foreground: 0 0% 64%;
+    --muted-foreground: 0 0% 80%;
 
     --accent: 240 10% 18%;
-    --accent-foreground: 0 0% 88%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
@@ -43,12 +43,12 @@
     --urgent: 0 72% 51%;
     --urgent-foreground: 0 0% 100%;
 
-    --border: 0 0% 25%;
-    --input: 0 0% 20%;
+    --border: 0 0% 100%;
+    --input: 240 10% 20%;
     --ring: 217 91% 60%;
 
-    --radius: 0.75rem;
-    --card-border: 1px solid rgba(255, 255, 255, 0.08);
+    --radius: 1rem;
+    --card-border: 1px solid rgba(255, 255, 255, 0.15);
 
     --sidebar-background: 240 16% 6% / 0.85;
     --sidebar-foreground: 0 0% 88%;
@@ -59,22 +59,6 @@
     --sidebar-border: 0 0% 18%;
     --sidebar-ring: 217 91% 60%;
   }
-
-  .high-contrast {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 3%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 3%;
-    --popover-foreground: 0 0% 100%;
-    --secondary: 0 0% 8%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 70%;
-    --border: 0 0% 30%;
-    --input: 0 0% 15%;
-    --sidebar-background: 0 0% 0%;
-    --sidebar-border: 0 0% 25%;
-  }
 }
 
 @layer base {
@@ -83,13 +67,24 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     font-family: var(--font-body);
-    color: #E1E1E1;
+    /* High contrast text */
+    color: #FFFFFF;
+    
+    /* Vibrant mesh gradient background */
+    background: radial-gradient(at 0% 0%, hsla(247, 48%, 21%, 1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(293, 48%, 31%, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(217, 85%, 29%, 1) 0, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(217, 85%, 29%, 1) 0, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(280, 70%, 25%, 1) 0, transparent 50%);
+    background-color: #0c081d;
+    background-attachment: fixed;
+    height: 100vh;
   }
 
   h1, h2, h3, h4 {
-    font-weight: 500;
+    font-weight: 600;
   }
 
   code, .font-mono {
@@ -102,34 +97,38 @@
     border-width: 0.5px;
   }
 
+  /* Core glassmorphism utilities */
   .glass {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    background: hsl(var(--card) / 0.7);
-    border: var(--card-border);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   }
 
   .glass-panel {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    background: hsl(240 15% 10% / 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .high-contrast .glass,
-  .high-contrast .glass-panel {
-    backdrop-filter: none;
-    background: hsl(var(--card));
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   }
 
   .card-premium {
     border-radius: var(--radius);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
   .card-premium:hover {
-    border-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
   }
 
   .btn-transition {
@@ -137,7 +136,13 @@
   }
 
   .sos-glow {
-    box-shadow: 0 0 24px rgba(239, 68, 68, 0.35), 0 0 48px rgba(239, 68, 68, 0.15);
+    box-shadow: 0 0 24px rgba(239, 68, 68, 0.45), 0 0 48px rgba(239, 68, 68, 0.25);
+    transition: all 0.3s ease;
+  }
+  
+  .sos-glow:hover {
+    box-shadow: 0 0 32px rgba(239, 68, 68, 0.6), 0 0 64px rgba(239, 68, 68, 0.4);
+    transform: translateY(-2px);
   }
 
   .pulse-urgent {
@@ -146,10 +151,10 @@
 
   @keyframes pulse-red {
     0%, 100% { 
-      box-shadow: 0 0 0 0 hsl(0 72% 51% / 0.7);
+      box-shadow: 0 0 0 0 hsla(0, 72%, 51%, 0.7);
     }
     50% { 
-      box-shadow: 0 0 0 12px hsl(0 72% 51% / 0);
+      box-shadow: 0 0 0 12px hsla(0, 72%, 51%, 0);
     }
   }
 
@@ -163,31 +168,34 @@
   }
 
   .tab-active {
-    background: hsl(var(--card));
+    background: rgba(255, 255, 255, 0.1) !important;
     border-bottom-color: transparent;
   }
 }
 
 /* Leaflet overrides */
 .leaflet-container {
-  background: #0D0D12 !important;
+  background: rgba(0, 0, 0, 0.5) !important;
   font-family: Inter, sans-serif !important;
 }
 
 .leaflet-control-zoom a {
-  background: hsl(var(--card)) !important;
-  color: hsl(var(--foreground)) !important;
-  border-color: hsl(var(--border)) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .leaflet-popup-content-wrapper {
-  background: hsl(var(--card)) !important;
-  color: hsl(var(--foreground)) !important;
+  background: rgba(15, 15, 25, 0.8) !important;
+  backdrop-filter: blur(15px);
+  color: #fff !important;
   border-radius: var(--radius) !important;
-  border: 0.5px solid hsl(var(--border)) !important;
-  box-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
 }
 
 .leaflet-popup-tip {
-  background: hsl(var(--card)) !important;
+  background: rgba(15, 15, 25, 0.8) !important;
 }
+

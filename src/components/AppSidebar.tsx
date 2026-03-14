@@ -1,4 +1,4 @@
-import { Home, Map, AlertTriangle, Package, Users, Users2, BookOpen, BarChart3, Wifi, WifiOff, Zap, ZapOff } from 'lucide-react';
+import { Home, Map, AlertTriangle, Package, Users, Users2, BookOpen, BarChart3, Wifi, WifiOff, Zap, ZapOff, Settings } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
 const navItems = [
@@ -13,7 +13,7 @@ const navItems = [
 ];
 
 export function AppSidebar() {
-  const { activeView, setActiveView, online, highContrast, toggleHighContrast } = useApp();
+  const { activeView, setActiveView, online, highContrast, toggleHighContrast, userProfile } = useApp();
 
   return (
     <div
@@ -49,28 +49,62 @@ export function AppSidebar() {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-white/[0.08] space-y-2">
-        <div className="flex items-center gap-2 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
-          {online ? (
-            <>
-              <Wifi className="w-3 h-3 text-success" />
-              <span className="text-success">ONLINE</span>
-            </>
-          ) : (
-            <>
-              <WifiOff className="w-3 h-3 text-urgent" />
-              <span className="text-urgent">OFFLINE</span>
-            </>
-          )}
-        </div>
-        <button
-          onClick={toggleHighContrast}
-          className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-all duration-200 ease-out"
-          style={{ fontFamily: 'Inter, sans-serif' }}
+      <div className="p-4 border-t border-white/[0.08] space-y-4">
+        {/* User Mini Profile */}
+        <div 
+          onClick={() => setActiveView('settings')}
+          className="flex items-center gap-3 p-2 -mx-2 rounded-xl hover:bg-white/5 cursor-pointer transition-colors group"
         >
-          {highContrast ? <ZapOff className="w-3 h-3" /> : <Zap className="w-3 h-3" />}
-          <span>{highContrast ? 'NORMAL MODE' : 'BATTERY SAVER'}</span>
-        </button>
+          <div className="w-9 h-9 rounded-full bg-secondary overflow-hidden border border-white/10 group-hover:border-primary/50 transition-colors flex-shrink-0">
+            <img 
+              src="/images/unknown_boy_avatar_1773454567626.png" 
+              alt="User Avatar" 
+              className="w-full h-full object-cover" 
+            />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-medium text-white truncate" style={{ fontFamily: 'Inter, sans-serif' }}>{userProfile.name}</p>
+            <p className="text-[10px] text-primary truncate" style={{ fontFamily: 'Inter, sans-serif' }}>{userProfile.role}</p>
+          </div>
+        </div>
+
+        {/* Existing System Controls */}
+        <div className="space-y-3 pt-3 border-t border-white/[0.04]">
+          <div className="flex items-center gap-2 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
+            {online ? (
+              <>
+                <Wifi className="w-3 h-3 text-success" />
+                <span className="text-success">ONLINE</span>
+              </>
+            ) : (
+              <>
+                <WifiOff className="w-3 h-3 text-urgent" />
+                <span className="text-urgent">OFFLINE</span>
+              </>
+            )}
+          </div>
+          <div className="flex items-center justify-between">
+            <button
+              onClick={toggleHighContrast}
+              className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-all duration-200 ease-out"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+            >
+              {highContrast ? <ZapOff className="w-3 h-3" /> : <Zap className="w-3 h-3" />}
+              <span>{highContrast ? 'NORMAL MODE' : 'BATTERY SAVER'}</span>
+            </button>
+            <button
+              onClick={() => setActiveView('settings')}
+              className={`p-1.5 rounded-md transition-all duration-200 ease-out ${
+                activeView === 'settings' 
+                  ? 'bg-primary/20 text-primary' 
+                  : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
+              }`}
+              title="Settings & Profile"
+            >
+              <Settings className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

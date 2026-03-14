@@ -180,10 +180,10 @@ export function CommunityManagement() {
           </h3>
           <div className="grid grid-cols-4 gap-4">
             {[
-              { label: 'Total Members', value: '1,250', sub: '+15 this week' },
-              { label: 'Active Subscribers', value: '2,340', sub: '+8% this month' },
-              { label: 'Reports This Week', value: '45', sub: 'No change' },
-              { label: 'Verified Reports', value: '38', sub: '+12% accuracy' },
+              { label: 'Total Members', value: '3', sub: '+0 this week' },
+              { label: 'Active Subscribers', value: '2', sub: '+0% this month' },
+              { label: 'Reports This Week', value: '0', sub: 'No change' },
+              { label: 'Verified Reports', value: '0', sub: '+0% accuracy' },
             ].map(card => (
               <div
                 key={card.label}

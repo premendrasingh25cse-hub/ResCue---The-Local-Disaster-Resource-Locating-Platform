@@ -1,11 +1,20 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
+export interface UserProfile {
+  name: string;
+  email: string;
+  phone: string;
+  role: string;
+}
+
 interface AppContextType {
   highContrast: boolean;
   toggleHighContrast: () => void;
   online: boolean;
-  activeView: 'dashboard' | 'map' | 'sos' | 'resource' | 'volunteer' | 'guide' | 'analytics' | 'community';
-  setActiveView: (v: 'dashboard' | 'map' | 'sos' | 'resource' | 'volunteer' | 'guide' | 'analytics' | 'community') => void;
+  activeView: 'dashboard' | 'map' | 'sos' | 'resource' | 'volunteer' | 'guide' | 'analytics' | 'community' | 'settings';
+  setActiveView: (v: 'dashboard' | 'map' | 'sos' | 'resource' | 'volunteer' | 'guide' | 'analytics' | 'community' | 'settings') => void;
+  userProfile: UserProfile;
+  setUserProfile: (profile: UserProfile) => void;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -14,6 +23,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [highContrast, setHighContrast] = useState(false);
   const [online, setOnline] = useState(navigator.onLine);
   const [activeView, setActiveView] = useState<AppContextType['activeView']>('dashboard');
+  const [userProfile, setUserProfile] = useState<UserProfile>({
+    name: 'Premendra Singh',
+    email: 'commander@rescue.org',
+    phone: '+91 98765 43210',
+    role: 'Regional Commander'
+  });
 
   React.useEffect(() => {
     const onOnline = () => setOnline(true);
@@ -37,7 +52,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const toggleHighContrast = useCallback(() => setHighContrast(p => !p), []);
 
   return (
-    <AppContext.Provider value={{ highContrast, toggleHighContrast, online, activeView, setActiveView }}>
+    <AppContext.Provider value={{ highContrast, toggleHighContrast, online, activeView, setActiveView, userProfile, setUserProfile }}>
       {children}
     </AppContext.Provider>
   );
