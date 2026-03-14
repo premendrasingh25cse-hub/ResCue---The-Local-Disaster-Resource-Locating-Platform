@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AlertTriangle, MapPin, Camera, Check, Upload, ToggleLeft, ToggleRight } from 'lucide-react';
+import { AlertTriangle, MapPin, Camera, Video, Check, Upload, ToggleLeft, ToggleRight } from 'lucide-react';
 
 type Step = 1 | 2 | 3;
 type SOSType = 'medical' | 'fire' | 'flood' | 'rescue' | 'other';
@@ -9,6 +9,8 @@ export function SOSTriage() {
   const [sosType, setSosType] = useState<SOSType | null>(null);
   const [priority, setPriority] = useState(false);
   const [photo, setPhoto] = useState<string | null>(null);
+  const [video, setVideo] = useState<string | null>(null);
+  const [videoName, setVideoName] = useState<string | null>(null);
   const [gpsLocked, setGpsLocked] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -29,6 +31,15 @@ export function SOSTriage() {
     }
   };
 
+  const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setVideo(url);
+      setVideoName(file.name);
+    }
+  };
+
   const lockGPS = () => {
     setTimeout(() => setGpsLocked(true), 800);
   };
@@ -45,7 +56,15 @@ export function SOSTriage() {
             {priority ? 'PRIORITY ALERT' : 'Standard alert'} sent to all nearby responders
           </p>
           <button
-            onClick={() => { setSubmitted(false); setStep(1); setSosType(null); setPhoto(null); setGpsLocked(false); }}
+            onClick={() => {
+              setSubmitted(false);
+              setStep(1);
+              setSosType(null);
+              setPhoto(null);
+              setVideo(null);
+              setVideoName(null);
+              setGpsLocked(false);
+            }}
             className="font-mono text-xs px-4 py-2 bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity duration-75"
           >
             NEW REPORT
@@ -68,7 +87,7 @@ export function SOSTriage() {
         </div>
         <button
           onClick={() => setPriority(p => !p)}
-          className={`flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded border border-subtle transition-colors duration-75 ${
+          className={`flex items-center gap-2 text-xs px-3 py-1.5 rounded-lg border border-white/[0.08] transition-all duration-200 ease-out ${
             priority ? 'bg-urgent text-urgent-foreground border-urgent' : 'bg-card text-muted-foreground border-border'
           }`}
         >
@@ -93,7 +112,7 @@ export function SOSTriage() {
               <button
                 key={t.id}
                 onClick={() => { setSosType(t.id); }}
-                className={`flex items-center gap-3 p-4 rounded border border-subtle text-left transition-colors duration-75 min-h-[48px] ${
+                className={`flex items-center gap-3 p-4 rounded-[12px] border border-white/[0.08] text-left transition-all duration-200 ease-out min-h-[48px] ${
                   sosType === t.id ? 'bg-primary/10 border-primary text-foreground' : 'bg-card border-border text-muted-foreground hover:bg-secondary'
                 }`}
               >
@@ -108,7 +127,7 @@ export function SOSTriage() {
             <h3 className="font-mono text-sm font-semibold text-foreground flex items-center gap-2">
               <Camera className="w-4 h-4" /> Photo Evidence (optional)
             </h3>
-            <label className="flex flex-col items-center justify-center p-6 border border-dashed border-border rounded bg-card cursor-pointer hover:bg-secondary transition-colors duration-75">
+            <label className="flex flex-col items-center justify-center p-6 border border-dashed border-white/[0.08] rounded-[12px] bg-card cursor-pointer hover:bg-secondary transition-all duration-200 ease-out">
               {photo ? (
                 <div className="relative">
                   <img src={photo} alt="Evidence" className="max-h-40 rounded" />
@@ -123,6 +142,28 @@ export function SOSTriage() {
                 </>
               )}
               <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
+            </label>
+          </div>
+
+          {/* Video upload */}
+          <div className="space-y-2">
+            <h3 className="font-mono text-sm font-semibold text-foreground flex items-center gap-2">
+              <Video className="w-4 h-4" /> Video Evidence (optional)
+            </h3>
+            <label className="flex flex-col items-center justify-center p-6 border border-dashed border-white/[0.08] rounded-[12px] bg-card cursor-pointer hover:bg-secondary transition-all duration-200 ease-out">
+              {video ? (
+                <div className="space-y-2 text-center">
+                  <video src={video} controls className="max-h-40 rounded mx-auto" />
+                  <p className="font-mono text-[10px] text-muted-foreground truncate">{videoName}</p>
+                </div>
+              ) : (
+                <>
+                  <Upload className="w-6 h-6 text-muted-foreground mb-1" />
+                  <span className="font-mono text-xs text-muted-foreground">Upload video</span>
+                  <span className="font-mono text-[10px] text-muted-foreground mt-1">Max a few minutes is recommended</span>
+                </>
+              )}
+              <input type="file" accept="video/*" className="hidden" onChange={handleVideoUpload} />
             </label>
           </div>
 
@@ -142,7 +183,7 @@ export function SOSTriage() {
           <h3 className="font-mono text-sm font-semibold text-foreground flex items-center gap-2">
             <MapPin className="w-4 h-4" /> GPS Location Lock
           </h3>
-          <div className="p-6 border border-subtle border-border rounded bg-card text-center space-y-3">
+          <div className="p-6 border border-white/[0.08] rounded-[12px] bg-card text-center space-y-3">
             {gpsLocked ? (
               <>
                 <div className="w-12 h-12 rounded-full bg-success/20 flex items-center justify-center mx-auto">
@@ -187,7 +228,7 @@ export function SOSTriage() {
       {step === 3 && (
         <div className="space-y-4">
           <h3 className="font-mono text-sm font-semibold text-foreground">Confirm & Transmit</h3>
-          <div className="p-4 border border-subtle border-border rounded bg-card space-y-2">
+          <div className="p-6 border border-white/[0.08] rounded-[12px] bg-card space-y-2">
             <div className="flex justify-between text-xs font-mono">
               <span className="text-muted-foreground">Type</span>
               <span className="text-foreground uppercase">{sosType}</span>
@@ -203,6 +244,10 @@ export function SOSTriage() {
             <div className="flex justify-between text-xs font-mono">
               <span className="text-muted-foreground">Photo</span>
               <span className="text-foreground">{photo ? 'Attached' : 'None'}</span>
+            </div>
+            <div className="flex justify-between text-xs font-mono">
+              <span className="text-muted-foreground">Video</span>
+              <span className="text-foreground">{video ? 'Attached' : 'None'}</span>
             </div>
           </div>
           {priority && (

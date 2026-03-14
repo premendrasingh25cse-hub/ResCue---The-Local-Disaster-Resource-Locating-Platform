@@ -5,6 +5,9 @@ import { SOSTriage } from '@/components/SOSTriage';
 import { EmergencyGuide } from '@/components/EmergencyGuide';
 import { ResourceLogistics } from '@/components/ResourceLogistics';
 import { VolunteerMesh } from '@/components/VolunteerMesh';
+import { AnalyticsDashboard } from '@/components/AnalyticsDashboard';
+import { CommunityManagement } from '@/components/CommunityManagement';
+import { Dashboard } from '@/components/Dashboard';
 import { TabProvider, useTabs } from '@/context/TabContext';
 import { AppProvider, useApp } from '@/context/AppContext';
 
@@ -14,6 +17,8 @@ function WorkspaceContent() {
 
   const renderView = () => {
     switch (activeView) {
+      case 'dashboard':
+        return <Dashboard />;
       case 'map':
         return (
           <div className="flex flex-col h-full">
@@ -39,6 +44,10 @@ function WorkspaceContent() {
         return <ResourceLogistics />;
       case 'volunteer':
         return <VolunteerMesh />;
+      case 'analytics':
+        return <AnalyticsDashboard />;
+      case 'community':
+        return <CommunityManagement />;
       default:
         return null;
     }

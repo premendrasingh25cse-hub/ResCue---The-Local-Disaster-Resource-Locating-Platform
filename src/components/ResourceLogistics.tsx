@@ -39,7 +39,7 @@ export function ResourceLogistics() {
           { label: 'In Transit', count: inTransit, color: 'text-warning' },
           { label: 'Requested', count: requested, color: 'text-urgent' },
         ].map(s => (
-          <div key={s.label} className="p-3 bg-card border border-subtle border-border rounded text-center">
+          <div key={s.label} className="p-6 bg-card border border-white/[0.08] rounded-[12px] text-center transition-all duration-200 ease-out hover:border-white/[0.12]">
             <p className={`font-mono text-2xl font-bold ${s.color}`}>{s.count}</p>
             <p className="font-mono text-[10px] text-muted-foreground uppercase">{s.label}</p>
           </div>
@@ -47,7 +47,7 @@ export function ResourceLogistics() {
       </div>
 
       {/* Table */}
-      <div className="border border-subtle border-border rounded overflow-hidden">
+      <div className="border border-white/[0.08] rounded-[12px] overflow-hidden">
         <div className="grid grid-cols-[1fr_auto_auto_auto] gap-px bg-border">
           {['Resource', 'Status', 'Qty', 'ETA'].map(h => (
             <div key={h} className="bg-secondary px-3 py-2 font-mono text-[10px] text-muted-foreground uppercase tracking-wider">

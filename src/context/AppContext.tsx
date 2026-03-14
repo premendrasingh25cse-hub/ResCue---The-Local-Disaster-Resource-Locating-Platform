@@ -4,8 +4,8 @@ interface AppContextType {
   highContrast: boolean;
   toggleHighContrast: () => void;
   online: boolean;
-  activeView: 'map' | 'sos' | 'resource' | 'volunteer' | 'guide';
-  setActiveView: (v: 'map' | 'sos' | 'resource' | 'volunteer' | 'guide') => void;
+  activeView: 'dashboard' | 'map' | 'sos' | 'resource' | 'volunteer' | 'guide' | 'analytics' | 'community';
+  setActiveView: (v: 'dashboard' | 'map' | 'sos' | 'resource' | 'volunteer' | 'guide' | 'analytics' | 'community') => void;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -13,7 +13,7 @@ const AppContext = createContext<AppContextType | null>(null);
 export function AppProvider({ children }: { children: ReactNode }) {
   const [highContrast, setHighContrast] = useState(false);
   const [online, setOnline] = useState(navigator.onLine);
-  const [activeView, setActiveView] = useState<AppContextType['activeView']>('map');
+  const [activeView, setActiveView] = useState<AppContextType['activeView']>('dashboard');
 
   React.useEffect(() => {
     const onOnline = () => setOnline(true);

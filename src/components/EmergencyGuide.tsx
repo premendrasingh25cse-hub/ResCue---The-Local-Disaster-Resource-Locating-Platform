@@ -71,7 +71,7 @@ export function EmergencyGuide() {
         </div>
 
         {/* Don'ts */}
-        <div className="mb-4 p-4 border border-subtle border-urgent/30 rounded bg-urgent/5">
+        <div className="mb-4 p-6 border border-white/[0.08] border-urgent/30 rounded-[12px] bg-urgent/5 transition-all duration-200 ease-out">
           <h3 className="font-mono text-xs font-semibold text-urgent uppercase tracking-wider mb-2 flex items-center gap-1.5">
             <AlertTriangle className="w-3 h-3" /> Critical Don'ts
           </h3>
@@ -85,7 +85,7 @@ export function EmergencyGuide() {
         </div>
 
         {/* Do's */}
-        <div className="mb-4 p-4 border border-subtle border-success/30 rounded bg-success/5">
+        <div className="mb-4 p-6 border border-white/[0.08] border-success/30 rounded-[12px] bg-success/5 transition-all duration-200 ease-out">
           <h3 className="font-mono text-xs font-semibold text-success uppercase tracking-wider mb-2 flex items-center gap-1.5">
             <Check className="w-3 h-3" /> Do's — First Actions
           </h3>
@@ -99,7 +99,7 @@ export function EmergencyGuide() {
         </div>
 
         {/* Checklist */}
-        <div className="p-4 border border-subtle border-border rounded bg-card">
+        <div className="p-6 border border-white/[0.08] rounded-[12px] bg-card transition-all duration-200 ease-out hover:border-white/[0.12]">
           <h3 className="font-mono text-xs font-semibold text-foreground uppercase tracking-wider mb-2 flex items-center gap-1.5">
             <Shield className="w-3 h-3" /> Survival Checklist
           </h3>
@@ -130,7 +130,7 @@ export function EmergencyGuide() {
           <button
             key={g.id}
             onClick={() => setSelected(g)}
-            className="flex items-center gap-3 p-4 bg-card border border-subtle border-border rounded hover:bg-secondary text-left transition-colors duration-75"
+            className="flex items-center gap-3 p-4 bg-card border border-white/[0.08] rounded-[12px] hover:bg-secondary text-left transition-all duration-200 ease-out hover:border-white/[0.12]"
           >
             <span className="text-2xl">{g.icon}</span>
             <div className="flex-1 min-w-0">

@@ -50,7 +50,7 @@ export function VolunteerMesh() {
           { label: 'Deployed', count: deployed, color: 'text-primary' },
           { label: 'Standby', count: standby, color: 'text-muted-foreground' },
         ].map(s => (
-          <div key={s.label} className="p-3 bg-card border border-subtle border-border rounded text-center">
+          <div key={s.label} className="p-6 bg-card border border-white/[0.08] rounded-[12px] text-center transition-all duration-200 ease-out hover:border-white/[0.12]">
             <p className={`font-mono text-2xl font-bold ${s.color}`}>{s.count}</p>
             <p className="font-mono text-[10px] text-muted-foreground uppercase">{s.label}</p>
           </div>
@@ -60,7 +60,7 @@ export function VolunteerMesh() {
       {/* Volunteer cards */}
       <div className="space-y-2">
         {volunteers.map(v => (
-          <div key={v.id} className="p-3 bg-card border border-subtle border-border rounded flex items-center gap-3 hover:bg-secondary transition-colors duration-75 cursor-pointer">
+          <div key={v.id} className="p-4 bg-card border border-white/[0.08] rounded-[12px] flex items-center gap-3 hover:bg-secondary transition-all duration-200 ease-out cursor-pointer hover:border-white/[0.12]">
             <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
               <Radio className="w-3.5 h-3.5 text-muted-foreground" />
             </div>

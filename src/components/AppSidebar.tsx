@@ -1,24 +1,34 @@
-import { Map, AlertTriangle, Package, Users, BookOpen, Wifi, WifiOff, Zap, ZapOff } from 'lucide-react';
+import { Home, Map, AlertTriangle, Package, Users, Users2, BookOpen, BarChart3, Wifi, WifiOff, Zap, ZapOff } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
 const navItems = [
+  { id: 'dashboard' as const, label: 'Dashboard', icon: Home },
   { id: 'map' as const, label: 'Live Map', icon: Map },
   { id: 'sos' as const, label: 'SOS Triage', icon: AlertTriangle },
   { id: 'resource' as const, label: 'Resource Logistics', icon: Package },
   { id: 'volunteer' as const, label: 'Volunteer Mesh', icon: Users },
   { id: 'guide' as const, label: 'Emergency Guide', icon: BookOpen },
+  { id: 'analytics' as const, label: 'Analytics', icon: BarChart3 },
+  { id: 'community' as const, label: 'Community', icon: Users2 },
 ];
 
 export function AppSidebar() {
   const { activeView, setActiveView, online, highContrast, toggleHighContrast } = useApp();
 
   return (
-    <div className="w-56 flex-shrink-0 flex flex-col bg-sidebar border-r border-subtle border-sidebar-border h-screen">
-      <div className="p-4 border-b border-subtle border-sidebar-border">
-        <h1 className="font-mono text-lg font-bold tracking-tight text-foreground">
+    <div
+      className="w-56 flex-shrink-0 flex flex-col border-r border-white/[0.08] h-screen"
+      style={{
+        background: 'hsl(var(--sidebar-background))',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+      }}
+    >
+      <div className="p-5 border-b border-white/[0.08]">
+        <h1 className="font-medium text-lg tracking-tight text-foreground" style={{ fontFamily: 'Inter, sans-serif' }}>
           Res<span className="text-primary">Cue</span>
         </h1>
-        <p className="font-mono text-[10px] text-muted-foreground mt-0.5">DISASTER RESPONSE v2.0</p>
+        <p className="text-[10px] text-muted-foreground mt-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>DISASTER RESPONSE v2.0</p>
       </div>
 
       <nav className="flex-1 py-2">
@@ -26,11 +36,12 @@ export function AppSidebar() {
           <button
             key={item.id}
             onClick={() => setActiveView(item.id)}
-            className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-mono transition-colors duration-75 ${
+            className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-200 ease-out ${
               activeView === item.id
                 ? 'bg-sidebar-accent text-primary border-r-2 border-primary'
                 : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
             }`}
+            style={{ fontFamily: 'Inter, sans-serif' }}
           >
             <item.icon className="w-4 h-4 flex-shrink-0" />
             <span className="truncate">{item.label}</span>
@@ -38,8 +49,8 @@ export function AppSidebar() {
         ))}
       </nav>
 
-      <div className="p-3 border-t border-subtle border-sidebar-border space-y-2">
-        <div className="flex items-center gap-2 text-xs font-mono">
+      <div className="p-4 border-t border-white/[0.08] space-y-2">
+        <div className="flex items-center gap-2 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
           {online ? (
             <>
               <Wifi className="w-3 h-3 text-success" />
@@ -54,7 +65,8 @@ export function AppSidebar() {
         </div>
         <button
           onClick={toggleHighContrast}
-          className="flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors duration-75"
+          className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-all duration-200 ease-out"
+          style={{ fontFamily: 'Inter, sans-serif' }}
         >
           {highContrast ? <ZapOff className="w-3 h-3" /> : <Zap className="w-3 h-3" />}
           <span>{highContrast ? 'NORMAL MODE' : 'BATTERY SAVER'}</span>
